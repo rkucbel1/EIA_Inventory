@@ -1,5 +1,4 @@
 #EIA Inventory Data for Natural Gas
-import pandas as pd
 import json
 import requests
 import os
@@ -14,12 +13,6 @@ resp = requests.get(url)
 
 #Format data into useable json format
 data_NG = json.loads(resp.text)
-
-#Make a dataframe
-df_NG = pd.DataFrame(data = data_NG['series'][0]['data'], columns=['Date', 'Bcf'] )
-
-#Dates read from api as strings. Convert to datetime
-df_NG['Date'] = pd.to_datetime(df_NG['Date'])
 
 #Get most recent datapoint and format date to be same as in database
 year = data_NG['series'][0]['data'][0][0][:4]
